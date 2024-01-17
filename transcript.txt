@@ -1,0 +1,42 @@
+❯ ./run DesignRecipeExamples
+Tester Library v.3.0
+-----------------------------------
+Tests defined in the class: DesignRecipeExamples:
+---------------------------
+DesignRecipeExamples:
+---------------
+new DesignRecipeExamples:1(
+ this.volumeTest1 = 8
+ this.volumeTest2 = 6
+ this.quadraticTest1 = 27
+ this.quadraticTest2 = 9
+ this.conversionTest1 = 20.580000000000002
+ this.conversionTest2 = 27.44
+ this.feets1 = 47547
+ this.feets2 = 1)
+---------------
+No test methods found.
+
+
+Writeup for Problems 3 & 4
+--------------------------
+Problem 3 Expected Values:
+double conversionTest1 = this.USDtoDKK(3); // expected: 20.58 and some floating point inaccuracy
+double conversionTest2 = this.USDtoDKK(4); // expected: 27.44 and some floating point inaccuracy
+
+Problem 3 Actual Values:
+this.conversionTest1 = 20.580000000000002
+this.conversionTest2 = 27.44
+
+Problem 4 Expected Values:
+int feets1 = this.totalFeet(quadraticTest2, quadraticTest1); // expected: 47,547
+// The output below of 1 is wrong in the sense that distance is magnitude
+// so ideally, totalFeet() should take the absolute value of inputs miles
+// and feet before performing the combination and returning a value
+int feets2 = this.totalFeet(-1, 5281); // expected: 1
+
+Problem 4 Actual Values:
+this.feets1 = 47547
+this.feets2 = 1
+
+All values are as expected!
