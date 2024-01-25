@@ -28,17 +28,20 @@ class DesignRecipeExamples {
     int quadraticTest2 = this.quadraticEquation(4, 3, 2, 1); // expected: 9
 
     // Problem 3
-    double USDtoDKK(double usd) {
+    int USDtoDKK(int usd) {
         /*
          * Converts a double, usd, in $USD into Danish Krone
          * Using the conversion rate as of 1/16/24
          * where $1USD = $6.86DKK
+         * Because the problem requires ints, round to nearest integer
+         * so assume $1USD = $7DKK
          */
-        return usd * 6.86;
+        int conversionRate = 7;
+        return usd * conversionRate;
     }
 
-    double conversionTest1 = this.USDtoDKK(3); // expected: 20.58 and some floating point inaccuracy
-    double conversionTest2 = this.USDtoDKK(4); // expected: 27.44 and some floating point inaccuracy
+    double conversionTest1 = this.USDtoDKK(3); // expected: 21
+    double conversionTest2 = this.USDtoDKK(4); // expected: 28
 
     // Problem 4
     int totalFeet(int miles, int feet) {
