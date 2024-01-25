@@ -40,8 +40,8 @@ class DesignRecipeExamples {
         return usd * conversionRate;
     }
 
-    double conversionTest1 = this.USDtoDKK(3); // expected: 21
-    double conversionTest2 = this.USDtoDKK(4); // expected: 28
+    int conversionTest1 = this.USDtoDKK(3); // expected: 21
+    int conversionTest2 = this.USDtoDKK(4); // expected: 28
 
     // Problem 4
     int totalFeet(int miles, int feet) {
