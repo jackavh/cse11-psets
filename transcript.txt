@@ -1,4 +1,3 @@
-❯ ./run DesignRecipeExamples
 Tester Library v.3.0
 -----------------------------------
 Tests defined in the class: DesignRecipeExamples:
@@ -10,23 +9,22 @@ new DesignRecipeExamples:1(
  this.volumeTest2 = 6
  this.quadraticTest1 = 27
  this.quadraticTest2 = 9
- this.conversionTest1 = 20.580000000000002
- this.conversionTest2 = 27.44
+ this.conversionTest1 = 21
+ this.conversionTest2 = 28
  this.feets1 = 47547
  this.feets2 = 1)
 ---------------
 No test methods found.
 
-
 Writeup for Problems 3 & 4
 --------------------------
 Problem 3 Expected Values:
-double conversionTest1 = this.USDtoDKK(3); // expected: 20.58 and some floating point inaccuracy
-double conversionTest2 = this.USDtoDKK(4); // expected: 27.44 and some floating point inaccuracy
+int conversionTest1 = this.USDtoDKK(3); // expected: 21
+int conversionTest2 = this.USDtoDKK(4); // expected: 28
 
 Problem 3 Actual Values:
-this.conversionTest1 = 20.580000000000002
-this.conversionTest2 = 27.44
+this.conversionTest1 = 21
+this.conversionTest2 = 28
 
 Problem 4 Expected Values:
 int feets1 = this.totalFeet(quadraticTest2, quadraticTest1); // expected: 47,547
