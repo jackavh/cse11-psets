@@ -64,11 +64,11 @@ class VideoComment {
             if (c == '@') {
                 atIdx = i;
             }
-            if (atIdx > 0 && c == ' ') {
+            if (atIdx != -1 && c == ' ') {
                 return this.text.substring(atIdx, i);
             }
         }
-        if (atIdx > 0) {
+        if (atIdx != -1) {
             return this.text.substring(atIdx);
         }
         return "";
@@ -134,7 +134,7 @@ class CommentReply {
 class Drill3 {
     // Tests
     VideoComment v1 = new VideoComment("This is a test comment with no mention", 124, 0);
-    VideoComment v2 = new VideoComment("This is a comment with a mention at the end @mention", 23, 76);
+    VideoComment v2 = new VideoComment("@dummy1 @dummy2", 23, 76);
     VideoComment v3 = new VideoComment("This is a comment with a @mention that should return a firstMention", 23, 76);
 
     boolean bv1 = v1.hasMention("Doesn't matter"); // expect: false
