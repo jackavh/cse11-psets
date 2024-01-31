@@ -55,20 +55,23 @@ class VideoComment {
          * is no space after the @, or if there’s no @, then an empty string "" should
          * be returned.
          * 
-         * this implementation does not check for mentions at the end of strings
+         * this implementation also checks for mentions at the end of string.
          */
 
-        // Catch no mention case
-        int atIdx = this.text.indexOf("@");
-        if (atIdx == -1) {
-            return "";
+        int atIdx = -1;
+        for (int i = 0; i < this.text.length(); i++) {
+            char c = this.text.charAt(i);
+            if (c == '@') {
+                atIdx = i;
+            }
+            if (atIdx > 0 && c == ' ') {
+                return this.text.substring(atIdx, i);
+            }
         }
-        // Catch no space after the @
-        int spaceIdx = this.text.substring(atIdx).indexOf(" "); // indexing in substring
-        if (spaceIdx == -1) {
-            return "";
+        if (atIdx > 0) {
+            return this.text.substring(atIdx);
         }
-        return this.text.substring(atIdx, spaceIdx + atIdx); // add index where substring starts
+        return "";
     }
 }
 
@@ -131,7 +134,7 @@ class CommentReply {
 class Drill3 {
     // Tests
     VideoComment v1 = new VideoComment("This is a test comment with no mention", 124, 0);
-    VideoComment v2 = new VideoComment("This is a comment without firstMention but with hasMention @mention", 23, 76);
+    VideoComment v2 = new VideoComment("This is a comment with a mention at the end @mention", 23, 76);
     VideoComment v3 = new VideoComment("This is a comment with a @mention that should return a firstMention", 23, 76);
 
     boolean bv1 = v1.hasMention("Doesn't matter"); // expect: false
@@ -143,7 +146,7 @@ class Drill3 {
     boolean rv3 = v3.hasReply(); // expect: true
 
     String mv1 = v1.firstMention(); // expect: ""
-    String mv2 = v2.firstMention(); // expect: ""
+    String mv2 = v2.firstMention(); // expect: "@mention"
     String mv3 = v3.firstMention(); // expect: "@mention"
 
     CommentReply c1 = new CommentReply(v1, "This is a test comment a @mention", 178, 2);
