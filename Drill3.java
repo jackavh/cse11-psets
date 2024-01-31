@@ -65,11 +65,11 @@ class VideoComment {
                 atIdx = i;
             }
             if (atIdx != -1 && c == ' ') {
-                return this.text.substring(atIdx, i);
+                return this.text.substring(atIdx + 1, i);
             }
         }
         if (atIdx != -1) {
-            return this.text.substring(atIdx);
+            return this.text.substring(atIdx + 1);
         }
         return "";
     }
