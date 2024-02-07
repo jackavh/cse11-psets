@@ -126,9 +126,7 @@ class VideoComment implements Comment {
      */
     @Override
     public String unrollCommentThread() {
-        // even though instructions say to end in newline,
-        // autograde tests don't expect it
-        return String.format("%s\n%d likes; %d replies\n%s",
+        return String.format("%s\n%d likes; %d replies\n%s\n",
                 this.author.username, this.likes, this.replies, this.text);
     }
 
@@ -187,9 +185,7 @@ class ReplyComment implements Comment {
      */
     @Override
     public String unrollCommentThread() {
-        // even though instructions say to end in newline,
-        // autograde tests don't expect it
-        return String.format("%s\n%s\n%d likes\n%s",
+        return String.format("%s\n%s\n%d likes\n%s\n",
                 this.replyTo.unrollCommentThread(),
                 this.author.username,
                 this.likes,
