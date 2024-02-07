@@ -1,0 +1,11 @@
+Tester Library v.3.0
+-----------------------------------
+Tests defined in the class: Open1A:
+---------------------------
+Open1A:
+---------------
+new Open1A:1(
+ this.example = "A ref:204349222   |   B ref:231685785"
+ this.sameObject = false)
+---------------
+No test methods found.
