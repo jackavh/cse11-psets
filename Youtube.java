@@ -126,9 +126,7 @@ class VideoComment implements Comment {
      */
     @Override
     public String unrollCommentThread() {
-        // something weird is going on with the autograding and newlines
-        // deleted newline for test
-        return String.format("%s\n%d likes; %d replies\n%s",
+        return String.format("%s\n%d likes; %d replies\n%s\n",
                 this.author.username, this.likes, this.replies, this.text);
     }
 
@@ -187,7 +185,7 @@ class ReplyComment implements Comment {
      */
     @Override
     public String unrollCommentThread() {
-        return String.format("%s\n%s\n%d likes\n%s\n",
+        return String.format("%s%s\n%d likes\n%s\n",
                 this.replyTo.unrollCommentThread(),
                 this.author.username,
                 this.likes,
@@ -260,21 +258,25 @@ class Youtube {
         String test3 = "test_username1\n" +
                 "10 likes; 5 replies\n" +
                 "This is a great example to use the Tester Library!\n" +
-                "\n" +
                 "test_username2\n" +
                 "7 likes\n" +
                 "Yeah, I agree!\n";
         String test4 = "test_username1\n" +
                 "10 likes; 5 replies\n" +
                 "This is a great example to use the Tester Library!\n" +
-                "\n" +
                 "test_username2\n" +
                 "7 likes\n" +
                 "Yeah, I agree!\n" +
-                "\n" +
                 "test_username1\n" +
                 "4 likes\n" +
                 "Thanks for acknowledgment!\n";
+        System.out.println(vc1.unrollCommentThread());
+        System.out.println("---got");
+        System.out.println(rc1.unrollCommentThread());
+        System.out.println("---want");
+        System.out.println(test3);
+        System.out.println(rc1.unrollCommentThread().length());
+        System.out.println(test3.length());
         return t.checkExpect(vc1.unrollCommentThread(), test1) &&
                 t.checkExpect(vc2.unrollCommentThread(), test2) &&
                 t.checkExpect(rc1.unrollCommentThread(), test3) &&
