@@ -30,7 +30,7 @@ class ArrayExamples {
      * string. If the input array contains only one string, the method should return
      * that string.
      */
-    public static String reverseJoinWith(String[] arr, String sep) {
+    static String reverseJoinWith(String[] arr, String sep) {
         if (arr.length == 1) {
             return arr[0];
         }
@@ -49,7 +49,7 @@ class ArrayExamples {
      * returns false if all elements in the array are false, else it returns true.
      * If the array is empty, the function should return false.
      */
-    public static boolean logicalOr(boolean[] arr) {
+    static boolean logicalOr(boolean[] arr) {
         // fun ternary solution
         int count = 0;
         for (boolean b : arr) {
@@ -65,7 +65,7 @@ class ArrayExamples {
      * (exclusive). If the array is empty, this should produce true. You can assume
      * that low ≤ high.
      */
-    public static boolean allOutsideRange(double[] arr, double low, double high) {
+    static boolean allOutsideRange(double[] arr, double low, double high) {
         for (double d : arr) {
             if (d >= low && d <= high) {
                 return false;
@@ -83,7 +83,7 @@ class ArrayExamples {
      * integers in the array. Assume the array has at least one element, and integer
      * sum/multiplication wouldn’t go beyond the range of an int.
      */
-    public static Pair addMulti(int[] arr) {
+    static Pair addMulti(int[] arr) {
         int sum = 0;
         int product = 1;
         for (int i : arr) {
@@ -104,7 +104,7 @@ class ArrayExamples {
      * "goodbye"], your method should return hello, as when all strings are sorted
      * alphabetically, hello would be at the last.
      */
-    public static String lastSortedString(String[] arr) {
+    static String lastSortedString(String[] arr) {
         // max algorithm; if s lexicgraphically follows last make last s
         String last = arr[0];
         for (String s : arr) {
@@ -127,7 +127,7 @@ class ArrayExamples {
      * 36000, 44900, and 33467. For key "UCI", it should return 33467. For key
      * "Stanford", it should return -1.
      */
-    public static int lookup(String[] keys, int[] values, String key) {
+    static int lookup(String[] keys, int[] values, String key) {
         for (int i = 0; i < keys.length; i++) {
             if (keys[i].equals(key)) {
                 return values[i];
