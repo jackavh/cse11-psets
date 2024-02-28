@@ -40,7 +40,6 @@ public class PositiveMinMaxAvg {
                 max = n;
             }
         }
-        System.out.println(String.format("Min: %.2f, Max: %.2f", min, max));
         System.out.println((min + max) / 2.0);
     }
 
