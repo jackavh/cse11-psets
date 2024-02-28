@@ -13,7 +13,7 @@ public class PositiveMinMaxAvg {
             try {
                 double num = Double.parseDouble(args[i]);
                 // only add num if it's positive
-                if (num >= 0) {
+                if (num > 0) {
                     nums.add(num);
                 }
                 // if parseDouble fails it throws a NumberFormatException
@@ -40,6 +40,7 @@ public class PositiveMinMaxAvg {
                 max = n;
             }
         }
+        System.out.println(String.format("Min: %.2f, Max: %.2f", min, max));
         System.out.println((min + max) / 2.0);
     }
 
