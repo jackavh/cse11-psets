@@ -12,7 +12,7 @@ class FileHelper {
     }
 }
 
-class StringSearchMilestone1 {
+class StringSearch {
     /**
      * Search for a query in a file and perform args
      * Takes 1-3 args
