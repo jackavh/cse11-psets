@@ -71,7 +71,6 @@ class StringSearch{
         } else {
             // Get the part of the query after the contains=
             String query = args[1].split("=")[1];
-            System.out.println("Query: " + query);
             ContainsQuery containsQuery = new ContainsQuery(query);
             for (String line : lines) {
                 if (containsQuery.matches(line)) {
