@@ -319,6 +319,12 @@ class StringSearch{
          * replacements, and won’t be transformed by this transform)
          */
         if (args.length == 3) {
+            String queryString = args[1];
+            Query query = readQuery(queryString);
+            if (query == null) {
+                System.err.println("Invalid query");
+                System.exit(1);
+            }
             String transformString = args[2];
             Transform transform = readTransform(transformString);
             if (transform == null) {
@@ -327,9 +333,11 @@ class StringSearch{
             }
 
             for (String line : lines) {
-                System.out.println(transform.transform(line));
+                if (query.matches(line)) {
+                    System.out.println(transform.transform(line));
+                }
             }
-            System.exit(0);
         }
+        System.exit(0);
     }
 }
