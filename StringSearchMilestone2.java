@@ -17,6 +17,13 @@ class ContainsQuery {
 
     public ContainsQuery(String query) {
         this.query = query;
+        // Remove quotations
+        if (query.startsWith("\"") && query.endsWith("\"")) {
+            this.query = query.substring(1, query.length() - 1);
+        }
+        if (query.startsWith("'") && query.endsWith("'")) {
+            this.query = query.substring(1, query.length() - 1);
+        }
     }
 
     public boolean matches(String line) {
@@ -64,6 +71,7 @@ class StringSearch{
         } else {
             // Get the part of the query after the contains=
             String query = args[1].split("=")[1];
+            System.out.println("Query: " + query);
             ContainsQuery containsQuery = new ContainsQuery(query);
             for (String line : lines) {
                 if (containsQuery.matches(line)) {
