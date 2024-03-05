@@ -238,7 +238,7 @@ class StringSearch {
             String[] replaceParts = value.split(";");
             String find = replaceParts[0];
             String replace = replaceParts[1];
-            return new ReplaceTransform(find, replace);
+            return new ReplaceTransform(stringParse(find), stringParse(replace));
         } else {
             return null;
         }
