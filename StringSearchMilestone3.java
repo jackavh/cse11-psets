@@ -12,65 +12,6 @@ class FileHelper {
     }
 }
 
-class QueryHelper {
-    static int intParse(String queryValue) {
-        try {
-            return Integer.parseInt(queryValue);
-        } catch (NumberFormatException e) {
-            System.err.println("Error parsing int: " + e);
-            return 0;
-        }
-    }
-
-    static String stringParse(String queryValue) {
-        String ret;
-        // Remove quotations
-        if (queryValue.startsWith("\"") && queryValue.endsWith("\"")) {
-            ret = queryValue.substring(1, queryValue.length() - 1);
-        }
-        if (queryValue.startsWith("'") && queryValue.endsWith("'")) {
-            ret = queryValue.substring(1, queryValue.length() - 1);
-        } else {
-            ret = queryValue;
-        }
-        return ret;
-    }
-
-    static Query readQuery(String q) {
-        String[] parts;
-        String type;
-        String value;
-        if (q.startsWith("not(")) {
-            // TODO: Handle not query
-            type = "not";
-            // not(contains="hello")
-            value = q.substring(4, q.length() - 1);
-        } else {
-            parts = q.split("=");
-            type = parts[0]; // query type
-            value = parts[1]; // query value
-        }
-        switch (type) {
-            case "length":
-                return new LengthQuery(QueryHelper.intParse(value));
-            case "greater":
-                return new GreaterQuery(QueryHelper.intParse(value));
-            case "less":
-                return new LessQuery(QueryHelper.intParse(value));
-            case "contains":
-                return new ContainsQuery(QueryHelper.stringParse(value));
-            case "starts":
-                return new StartsQuery(QueryHelper.stringParse(value));
-            case "ends":
-                return new EndsQuery(QueryHelper.stringParse(value));
-            case "not":
-                return new NotQuery(QueryHelper.readQuery(value));
-            default:
-                return null;
-        }
-    }
-}
-
 interface Query {
     boolean matches(String s);
 }
@@ -160,6 +101,62 @@ class EndsQuery implements Query {
 }
 
 class StringSearch{
+    static int intParse(String queryValue) {
+        try {
+            return Integer.parseInt(queryValue);
+        } catch (NumberFormatException e) {
+            System.err.println("Error parsing int: " + e);
+            return 0;
+        }
+    }
+
+    static String stringParse(String queryValue) {
+        String ret;
+        // Remove quotations
+        if (queryValue.startsWith("\"") && queryValue.endsWith("\"")) {
+            ret = queryValue.substring(1, queryValue.length() - 1);
+        }
+        if (queryValue.startsWith("'") && queryValue.endsWith("'")) {
+            ret = queryValue.substring(1, queryValue.length() - 1);
+        } else {
+            ret = queryValue;
+        }
+        return ret;
+    }
+
+    static Query readQuery(String q) {
+        String[] parts;
+        String type;
+        String value;
+        if (q.startsWith("not(")) {
+            // TODO: Handle not query
+            type = "not";
+            // not(contains="hello")
+            value = q.substring(4, q.length() - 1);
+        } else {
+            parts = q.split("=");
+            type = parts[0]; // query type
+            value = parts[1]; // query value
+        }
+        switch (type) {
+            case "length":
+                return new LengthQuery(intParse(value));
+            case "greater":
+                return new GreaterQuery(intParse(value));
+            case "less":
+                return new LessQuery(intParse(value));
+            case "contains":
+                return new ContainsQuery(stringParse(value));
+            case "starts":
+                return new StartsQuery(stringParse(value));
+            case "ends":
+                return new EndsQuery(stringParse(value));
+            case "not":
+                return new NotQuery(readQuery(value));
+            default:
+                return null;
+        }
+    }
     /**
      * Search for a query in a file and perform args
      * Takes 1-3 args
@@ -203,7 +200,7 @@ class StringSearch{
         if (args.length == 2) {
             String queryString = args[1];
             // DO NOT PASS NOT() QUERY ITS NOT IMPLEMENTED
-            Query query = QueryHelper.readQuery(queryString);
+            Query query = readQuery(queryString);
 
             for (String line : lines) {
                 if (query.matches(line)) {
