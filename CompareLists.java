@@ -120,7 +120,7 @@ class CompareLists {
         return true;
     }
 
-    <E> List<E> merge(List<E> listA, List<E> listB, Comparator<E> comp) {
+    <E> List<E> merge(Comparator<E> comp, List<E> listA, List<E> listB) {
         int i = 0;
         int j = 0;
         List<E> ret = new ArrayList<E>();
@@ -281,5 +281,20 @@ class CompareLists {
         return t.checkExpect(lesserThan(list1, slc, less1), list1.subList(0,2)) &&
                t.checkExpect(lesserThan(list2, pc, less2), list2.subList(0,2)) &&
                t.checkExpect(lesserThan(list3, sc, less3), list3.subList(0, 3));
+    }
+
+    boolean testInOrder(Tester t) {
+        // Test 1
+        Comparator<String> slc = new StringLengthCompare();
+        List<String> list1 = Arrays.asList("a", "aaaaaa", "aaa", "aaaa");
+        // Test 2
+        Comparator<Point> pc = new PointCompare();
+        List<Point> list2 = Arrays.asList(new Point(0, 0), new Point(1, 0), new Point(2, 2));
+        // Test 3
+        Comparator<String> sc = new StringCompare();
+        List<String> list3 = Arrays.asList("a", "b", "c", "d", "e", "f");
+        return t.checkExpect(inOrder(list1, slc), false) &&
+               t.checkExpect(inOrder(list2, pc), true) &&
+               t.checkExpect(inOrder(list3, sc), true);
     }
 }
