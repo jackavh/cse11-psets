@@ -120,7 +120,7 @@ class CompareLists {
         return true;
     }
 
-    <E> List<E> merge(Comparator<E> comp, List<E> listA, List<E> listB) {
+    <E> List<E> merge(List<E> listA, List<E> listB, Comparator<E> comp) {
         int i = 0;
         int j = 0;
         List<E> ret = new ArrayList<E>();
@@ -285,6 +285,7 @@ class CompareLists {
                t.checkExpect(lesserThan(list2, pc, less2), list2.subList(0,2)) &&
                t.checkExpect(lesserThan(list3, sc, less3), list3.subList(0, 3));
     }
+<<<<<<< HEAD
 
     boolean testInOrder(Tester t) {
         // Test 1
@@ -337,4 +338,6 @@ class CompareLists {
                t.checkExpect(merge(pc, list3, list4), merged2) &&
                t.checkExpect(merge(sc, list5, list6), merged3);
     }
+=======
+>>>>>>> parent of 40a5c53 (fix param order on merge())
 }
