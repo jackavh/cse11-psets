@@ -79,9 +79,6 @@ class CompareLists {
         List<E> ret = new ArrayList<E>();
         for (E x : arr) {
             if (comp.compare(x, ele) < 0) {
-            System.out.println(ele.getClass());
-            System.out.println(x.getClass());
-            System.out.println(ret.getClass());
                 ret.add(x);
             }
         }
@@ -120,13 +117,11 @@ class CompareLists {
         return true;
     }
 
-    <E> List<E> merge(List<E> listA, List<E> listB, Comparator<E> comp) {
+    <E> List<E> merge(Comparator<E> comp, List<E> listA, List<E> listB) {
         int i = 0;
         int j = 0;
         List<E> ret = new ArrayList<E>();
         while (i < listA.size() && j < listB.size()) {
-            System.out.println(String.format("comparing: %s > %s", listA.get(i), listB.get(j)));
-            System.out.println(ret);
             if ( comp.compare(listA.get(i), listB.get(j)) > 0 ) {
                 ret.add(listB.get(j));
                 j++;
@@ -135,13 +130,10 @@ class CompareLists {
                 i++;
             }
         }
-            System.out.println("Done with comparison");
             if (i < listA.size()) {
-                System.out.println("add all from listA");
-                ret.addAll(inOrder(listA.subList(i, listA.size()), comp));
+                ret.addAll(listA.subList(i, listA.size()));
             }
             if (j < listB.size()) {
-            System.out.println("add all from listB");
                 ret.addAll(listB.subList(j, listB.size()));
             }
         return ret;
@@ -285,7 +277,6 @@ class CompareLists {
                t.checkExpect(lesserThan(list2, pc, less2), list2.subList(0,2)) &&
                t.checkExpect(lesserThan(list3, sc, less3), list3.subList(0, 3));
     }
-<<<<<<< HEAD
 
     boolean testInOrder(Tester t) {
         // Test 1
@@ -320,9 +311,8 @@ class CompareLists {
     boolean testMerge(Tester t) {
         // Test 1
         Comparator<String> slc = new StringLengthCompare();
-        List<String> list1 = Arrays.asList("a", "aaaaaa", "aaa", "aaaa");
+        List<String> list1 = Arrays.asList("a", "aaa", "aaaa", "aaaaaa");
         List<String> list2 = Arrays.asList("a", "aa", "aaa", "aaaa");
-        // a, a, aa, aaa, aaa, aaaa, aaaa, aaaaaa
         List<String> merged1 = Arrays.asList("a", "a", "aa", "aaa", "aaa", "aaaa", "aaaa", "aaaaaa");
         // Test 2
         Comparator<Point> pc = new PointCompare();
@@ -338,6 +328,4 @@ class CompareLists {
                t.checkExpect(merge(pc, list3, list4), merged2) &&
                t.checkExpect(merge(sc, list5, list6), merged3);
     }
-=======
->>>>>>> parent of 40a5c53 (fix param order on merge())
 }
