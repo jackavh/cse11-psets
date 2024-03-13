@@ -125,22 +125,25 @@ class CompareLists {
         int j = 0;
         List<E> ret = new ArrayList<E>();
         while (i < listA.size() && j < listB.size()) {
-            if ( comp.compare(listA.get(i), listB.get(j)) >= 0 ) {
-                ret.add(listA.get(i));
-                i++;
+            System.out.println(String.format("comparing: %s > %s", listA.get(i), listB.get(j)));
+            System.out.println(ret);
+            if ( comp.compare(listA.get(i), listB.get(j)) > 0 ) {
+                ret.add(listB.get(j));
+                j++;
             } else {
-                ret.add(listB.get(j));
-                j++;
-            }
-            if (i < listA.size()) {
                 ret.add(listA.get(i));
                 i++;
-            }
-            if (j < listB.size()) {
-                ret.add(listB.get(j));
-                j++;
             }
         }
+            System.out.println("Done with comparison");
+            if (i < listA.size()) {
+                System.out.println("add all from listA");
+                ret.addAll(inOrder(listA.subList(i, listA.size()), comp));
+            }
+            if (j < listB.size()) {
+            System.out.println("add all from listB");
+                ret.addAll(listB.subList(j, listB.size()));
+            }
         return ret;
     }
 
@@ -296,5 +299,42 @@ class CompareLists {
         return t.checkExpect(inOrder(list1, slc), false) &&
                t.checkExpect(inOrder(list2, pc), true) &&
                t.checkExpect(inOrder(list3, sc), true);
+    }
+
+    boolean testInOrderArr(Tester t) {
+        // Test 1
+        Comparator<String> slc = new StringLengthCompare();
+        String[] list1 = {"a", "aaaaaa", "aaa", "aaaa"};
+        // Test 2
+        Comparator<Point> pc = new PointCompare();
+        Point[] list2 = {new Point(0, 0), new Point(1, 0), new Point(2, 2)};
+        // Test 3
+        Comparator<String> sc = new StringCompare();
+        String[] list3 = {"a", "b", "c", "d", "e", "f"};
+        return t.checkExpect(inOrder(list1, slc), false) &&
+               t.checkExpect(inOrder(list2, pc), true) &&
+               t.checkExpect(inOrder(list3, sc), true);
+    }
+
+    boolean testMerge(Tester t) {
+        // Test 1
+        Comparator<String> slc = new StringLengthCompare();
+        List<String> list1 = Arrays.asList("a", "aaaaaa", "aaa", "aaaa");
+        List<String> list2 = Arrays.asList("a", "aa", "aaa", "aaaa");
+        // a, a, aa, aaa, aaa, aaaa, aaaa, aaaaaa
+        List<String> merged1 = Arrays.asList("a", "a", "aa", "aaa", "aaa", "aaaa", "aaaa", "aaaaaa");
+        // Test 2
+        Comparator<Point> pc = new PointCompare();
+        List<Point> list3 = Arrays.asList(new Point(0, 0), new Point(1, 0), new Point(2, 2));
+        List<Point> list4 = Arrays.asList(new Point(0, 0), new Point(1, 0), new Point(2, 2));
+        List<Point> merged2 = Arrays.asList(new Point(0, 0), new Point(0, 0), new Point(1, 0), new Point(1, 0), new Point(2, 2), new Point(2, 2));
+        // Test 3
+        Comparator<String> sc = new StringCompare();
+        List<String> list5 = Arrays.asList("a", "b", "c", "d", "e", "f");
+        List<String> list6 = Arrays.asList("a", "b", "c", "d", "e", "f");
+        List<String> merged3 = Arrays.asList("a", "a", "b", "b", "c", "c", "d", "d", "e", "e", "f", "f");
+        return t.checkExpect(merge(slc, list1, list2), merged1) &&
+               t.checkExpect(merge(pc, list3, list4), merged2) &&
+               t.checkExpect(merge(sc, list5, list6), merged3);
     }
 }
