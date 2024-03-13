@@ -28,7 +28,7 @@ class PointCompare implements Comparator<Point> {
 class PointDistanceCompare implements Comparator<Point> {
     public int compare(Point p1, Point p2) {
         Point origin = new Point(0, 0);
-        return (int)(p1.distance(origin) - p2.distance(origin));
+        return Double.compare(p1.distance(origin), p2.distance(origin));
     }
 }
 
@@ -122,6 +122,12 @@ class CompareLists {
         int j = 0;
         List<E> ret = new ArrayList<E>();
         while (i < listA.size() && j < listB.size()) {
+            if (listA.get(i) == null ) {
+                throw new IllegalArgumentException("null value in first list");
+            }
+            if (listB.get(j) == null ) {
+                throw new IllegalArgumentException("null value in second list");
+            }
             if ( comp.compare(listA.get(i), listB.get(j)) > 0 ) {
                 ret.add(listB.get(j));
                 j++;
@@ -192,16 +198,17 @@ class CompareLists {
         // . . . . .  | . . . . .
         // . . . 1 .  | . . . . .
         // . . o . .  | . 1 o . .
-        // . . . . .  | . . . . .
-        // 2 . . . .  | . . . . 2
-        // 1: p1=( 1, 1), p2=(-2,-2) -> -1
+        // 2 . . . .  | . . . . .
+        // . . . . .  | . . . . 2
+        // 1: p1=( 1, 1), p2=(-2,-1) -> -1
         // 2: p1=(-1, 0), p2=(-2,2) -> -1
         PointDistanceCompare pdc = new PointDistanceCompare();
+        System.out.println("Comparing (0,1) with (-1,0): " + pdc.compare(new Point(0,1), new Point(-1,0)));
         return t.checkExpect(pdc.compare(new Point(0,2), new Point(1,0)), 1) &&
                t.checkExpect(pdc.compare(new Point(-2,2), new Point(1,-1)), 1) &&
                t.checkExpect(pdc.compare(new Point(0,1), new Point(-1,0)), 0) &&
                t.checkExpect(pdc.compare(new Point(-2,2), new Point(2,2)), 0) &&
-               t.checkExpect(pdc.compare(new Point(1,1), new Point(-2,-2)), -1) &&
+               t.checkExpect(pdc.compare(new Point(1,1), new Point(-2,-1)), -1) &&
                t.checkExpect(pdc.compare(new Point(-1,0), new Point(-2,-2)), -1);
     }
 
@@ -328,4 +335,7 @@ class CompareLists {
                t.checkExpect(merge(pc, list3, list4), merged2) &&
                t.checkExpect(merge(sc, list5, list6), merged3);
     }
+    // Autograder failed tests
+    // PointDistanceCompare test 2 failed : Expected: 1 ; Your result : 0
+    // lesserThan - PointDistanceCompare test 2 failed : Expected: [Point@3f91beef] ; Your result : []
 }
